@@ -56,7 +56,6 @@ for i in range(0, len(a) - 1):
 print(sum_index + 1)
 
 #9. ЗАДАЧА «ПЕРЕСТАВИТЬ СОСЕДНИЕ»
-
 a = [int(i) for i in input().split()]
 for i in range(1, len(a), 2):
     a[i - 1], a[i] = a[i], a[i - 1]
