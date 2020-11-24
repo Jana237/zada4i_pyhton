@@ -1,7 +1,6 @@
-schotchik_voprosov=0 #Счётчик вопросов, в начале игры 0
-while schotchik_voprosov<10: #Цикл, играем 10 раз, т.к. 10 вопросов
-
-    def viktorina(): #Задаем функцию для викторины
+schotchik_voprosov=0 
+while schotchik_voprosov<10:
+    def viktorina(): 
         with open ('voprosi.txt','r',encoding='utf8') as file:
             spisok_voprosov = file.read().splitlines()
             global schotchik_voprosov
@@ -11,29 +10,23 @@ while schotchik_voprosov<10: #Цикл, играем 10 раз, т.к. 10 воп
                 if vopros_otvet[i]==';':
                     vopros = vopros_otvet[0:i]
                     otvet = vopros_otvet[i+1:len(vopros_otvet)]
-            return otvet, vopros #Функция выдает ответ и вопрос
-   
-    otvet, vopros = viktorina() #Задаем переменные
-   
+            return otvet, vopros 
+    otvet, vopros = viktorina() 
     print(vopros)
-    #Печатаем звездочки для скрытого слова:
     skritoje_slovo = []
     for bukva in range(0,len(otvet)):
         skritoje_slovo.append('*')
     print(''.join(skritoje_slovo))
-
     popitki=0
-    otgadannije_bukvi = '' #Сначала нет отгаданных букв
-
-    while  popitki != 3:
-        #Пользоатель вводит свою догадку:
+    otgadannije_bukvi = ''
+    while  popitki != 3:     
         dogadka = input('Введите букву или слово: ').lower()
         if dogadka == otvet:
             print('Молодцы!');print();break
         if dogadka in otvet and dogadka not in otgadannije_bukvi:
             print ('Есть такая буква!')
             otgadannije_bukvi += dogadka
-            podbor_bukv = '' #Для вывода отгаданных и скрытых букв
+            podbor_bukv = '' 
             for bukva_otveta in otvet:
                 if bukva_otveta in otgadannije_bukvi:
                     podbor_bukv += bukva_otveta
@@ -47,13 +40,10 @@ while schotchik_voprosov<10: #Цикл, играем 10 раз, т.к. 10 воп
             print('Такой буквы нет или неверное слово!')
             popitki += 1
         if podbor_bukv == otvet:
-            print('Вы правильно назвали все буквы!');print();break
-     
+            print('Вы правильно назвали все буквы!');print();break     
     if popitki == 3:
         print('Вы не угадали слово! Правильный ответ: {}.'.format(otvet))
-        print()
-       
-    schotchik_voprosov+=1
-           
+        print()       
+    schotchik_voprosov+=1           
 if schotchik_voprosov==10:
         print('Конец игры!')
