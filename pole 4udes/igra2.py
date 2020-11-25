@@ -1,6 +1,6 @@
 import random
 
-def viktorina(): #Задаем функцию для викторины
+def viktorina():
     with open ('voprosi.txt','r',encoding='utf8') as file:
         spisok_voprosov = file.read().splitlines()
         strocka = random.randrange(0, len(spisok_voprosov))
@@ -9,29 +9,29 @@ def viktorina(): #Задаем функцию для викторины
             if vopros_otvet[i]==';':
                 vopros = vopros_otvet[0:i]
                 otvet = vopros_otvet[i+1:len(vopros_otvet)]
-        return otvet, vopros #Функция выдает ответ и вопрос
+        return otvet, vopros
 
-otvet, vopros = viktorina() #Задаем переменные
+otvet, vopros = viktorina()
 
 print(vopros)
-#Печатаем звездочки для скрытого слова:
+
 skritoje_slovo = []
 for bukva in range(0,len(otvet)):
     skritoje_slovo.append('*')
 print(''.join(skritoje_slovo))
 
 popitki=0
-otgadannije_bukvi = '' #Сначала нет отгаданных букв
+otgadannije_bukvi = '' 
 
 while  popitki != 3:
-    #Пользоатель вводит свою догадку:
+    
     dogadka = input('Введите букву или слово: ').lower()
     if dogadka == otvet:
         print('Молодцы!');print();break
     if dogadka in otvet and dogadka not in otgadannije_bukvi:
         print ('Есть такая буква!')
         otgadannije_bukvi += dogadka
-        podbor_bukv = '' #Для вывода отгаданных и скрытых букв
+        podbor_bukv = '' 
         for bukva_otveta in otvet:
             if bukva_otveta in otgadannije_bukvi:
                 podbor_bukv += bukva_otveta
@@ -39,10 +39,10 @@ while  popitki != 3:
                 podbor_bukv += "*"
         print("Угаданные буквы: ", podbor_bukv)
     elif dogadka in otgadannije_bukvi:
-        print ('Вы уже называли эту букву!')
+        print ('Вы уже называли эту букву!','осталось',3-popitki,'попытки(а)')
         popitki += 1
     else:
-        print('Такой буквы нет или неверное слово!')
+        print('Такой буквы нет или неверное слово!','осталось',3-popitki,'попытки(а)')
         popitki += 1
     if podbor_bukv == otvet:
        print('Вы правильно назвали все буквы!');print();break
