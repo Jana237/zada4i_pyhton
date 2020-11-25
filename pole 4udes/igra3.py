@@ -34,10 +34,10 @@ while schotchik_voprosov<10:
                     podbor_bukv += "*"
             print("Угаданные буквы: ", podbor_bukv)
         elif dogadka in otgadannije_bukvi:
-            print ('Вы уже называли эту букву!')
+            print ('Вы уже называли эту букву!','осталось',3-popitki,'попытки(а)')
             popitki += 1
         else:
-            print('Такой буквы нет или неверное слово!')
+            print('Такой буквы нет или неверное слово!','осталось',3-popitki,'попытки(а)')
             popitki += 1
         if podbor_bukv == otvet:
             print('Вы правильно назвали все буквы!');print();break     
