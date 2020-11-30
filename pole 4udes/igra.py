@@ -1,67 +1,63 @@
 import random
-def get_quest():
-    #open file with questions
+def get_vopros():
+    # Открыть файл с вопросами
    vopros = open("game.txt","r",encoding=("utf-8"))
-   #read question list
-   question_list = vopros.read().splitlines()
-   #choose a random question
-   questnum = random.randrange (0,len(question_list))
-   questline = str (question_list[questnum])
-   #searching for ";" in line
-   for i in range(0,len(questline)):
-       if questline[i]==";":
-           vopros = questline[0:i]
-           otvet = questline[i+1:len(questline)]
+   
+   vopros_list = vopros.read().splitlines()
+   # Выберите случайный вопрос
+   voprosnum = random.randrange (0,len(vopros_list))
+   voprosline = str (vopros_list[voprosnum])
+   
+   for i in range(0,len(voprosline)):
+       if voprosline[i]==";":
+           vopros = voprosline[0:i]
+           otvet = voprosline[i+1:len(voprosline)]
            return otvet, vopros
-counter=0
+popitki=0
 while True:
     initCheck="exit"
-    print("Начать игру нажав любую кнопку! Нажмите '",initCheck,"' если хотите выйти из игры.")  
+    print("Начать игру нажав любую кнопку! Введите '",initCheck,"' если хотите выйти из игры.")  
     init=input()
     if init==initCheck:
-        print("ТЫ ответил ",counter," вопрос!")
+        print("ТЫ ответил ",popitki," вопрос!")
         break
-    otvet, vopros = get_quest()
+    otvet, vopros = get_vopros()
     print(vopros)
-    print(otvet)
-    #hiding the answer, but not the whitespace
-    view=[]
-    check=""
-    for i in range (0,len(otvet)):
-        if otvet[i]==" ":
-            view.append(" ")
-        else:
-            view.append("*")
-    print("".join(view))
-    #giving a 3 tries to guess a character or answer
+    # Скрыть ответ
+    skritoje_slovo=[]
+    for bukva in range (0,len(otvet)):
+        skritoje_slovo.append("*")
+    print(" ".join(skritoje_slovo))
+    popitki = 0
+    otgadannije_bukvi=""
+    
+    # Три попытки. Угадай букву или слово.
     k=3
     while k>0:
         ans = input('Введите букву или слово:')
         if ans.lower() == otvet.lower():
-            counter=counter+1
-            print("Молодцы!. Правильный ответ {otvet}");
+            popitki=popitki+1
+            print("Молодцы!. Правильный ответ!");print()
             break
         elif (ans.lower() in otvet.lower()):
             print("Есть такая буква!")
             for i in range(0,len(otvet)):
                 if otvet[i].lower()==ans.lower():
                     if otvet[i].isupper():
-                        view[i]=ans.upper()
-                        check="".join(view)
+                        skritoje_slovo[i]=ans.upper()
+                        check="".join(skritoje_slovo)
                     else:
-                        view[i]=ans.lower()
-                        check="".join(view)
+                        skritoje_slovo[i]=ans.lower()
+                        check="".join(skritoje_slovo)
         else:
             print("Такой буквы нет или неверное слово! Осталось ",k-1," попытки(а).")
             k=k-1
         if check.lower()==otvet.lower():
-            counter=counter+1
+            popitki=popitki+1
             print(f"Вы правильно назвали все буквы! Загаданное слово {otvet}");break
         print(check)
-       # print(answer)
+       
         if k==0:
             print(f"Конец игры! Вы неправильно ответили на вопрос. Загаданное слово было {otvet}")
             print()
-            counter=0
-            
-
+            popitki=0
